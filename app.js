@@ -8,16 +8,13 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-var usuariosRouter = require('./routes/usuarios');
-
-
-
-
+var productosRouter = require('./routes/productos'); // Agregamos el enrutador de productos
+var empleadosRouter = require('./routes/empleados'); // Agregamos el enrutador de empleados
 
 var app = express();
 
 var mongoDB = 'mongodb://127.0.0.1:27017/myappdb';
-mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology:true});
+mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
@@ -34,8 +31,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-
-app.use('/usuarios', usuariosRouter);
+app.use('/productos', productosRouter); // Usamos el enrutador de productos en /productos
+app.use('/empleados', empleadosRouter); // Usamos el enrutador de empleados en /empleados
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
